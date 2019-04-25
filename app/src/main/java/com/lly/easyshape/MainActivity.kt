@@ -31,10 +31,10 @@ class MainActivity : AppCompatActivity() {
         //圆角
         EasyShape().with(this@MainActivity).setColor(Color.WHITE)
             .setRadius(10).target(btn_c)
-        //也可以这样
+        //也可以这样分别设置
 //        EasyShape().with(this@MainActivity).setColor(Color.WHITE)
-//            .setRadius(20,10,0,0)
-        //按压颜色
+//            .setRadius(20,10,0,0).target(btn_c)
+        //传入默认的颜色和按下的颜色
         EasyShape().with(this@MainActivity).setStateColor(Color.WHITE, Color.GRAY)
             .setRadius(10).target(btn_d)
 
