@@ -1,9 +1,10 @@
 # EasyShape
-## 前言
-随着项目各种新增需求,Drabable里面的Shape_xx和Select_xx xml文件越来越多。这里面可能有很多重复的,也可能只是稍微变了一下,比如Shape的圆角从4dp变成5dp
-又得copy出一份文件把 android:radius 属性从4dp,改成5dp，个人觉得不利于项目的维护和简洁性，希望通过简洁的代码实现就好了
 
-### 如何使用
+### 前言
+随着项目各种新增需求页面 Drabable里面的Shape_xx和Select_xx xml文件越来越多,有重复的,也可能只是稍微变了一下,比如Shape的圆角从4dp变成5dp，这时候
+又得copy出一份文件把 android:radius 属性从4dp,改成5dp.看着一堆密密麻麻的shape select 文件,要是能通过简洁的代码实现就好了。
+
+#### 如何使用
 
 ##### 虚线
 ```java
