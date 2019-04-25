@@ -28,4 +28,4 @@
 
 #### 效果图
 
-![image](https://github.com/ght199266/MultiStateLayoutDemo/blob/master/app/src/screenshots/tt.gif)
+![image](https://github.com/ght199266/EasyShape/blob/master/app/src/picture/shape.gif)
