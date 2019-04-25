@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:background="#F2F2F2"
+
+              android:gravity="center_horizontal"
+              tools:context=".MainActivity">
+
+
+    <Space android:layout_width="10dp"
+           android:layout_height="10dp"/>
+    <Button
+            android:id="@+id/btn_a"
+            android:layout_width="150dp"
+            android:layout_height="60dp"
+            android:textSize="26sp"
+            android:text="虚线"/>
+
+
+    <Space android:layout_width="10dp"
+           android:layout_height="10dp"/>
+
+    <Button
+            android:id="@+id/btn_b"
+            android:layout_width="150dp"
+            android:layout_height="60dp"
+            android:textSize="26sp"
+            android:text="边框"/>
+
+    <Space android:layout_width="10dp"
+           android:layout_height="10dp"/>
+
+    <Button
+            android:id="@+id/btn_c"
+            android:layout_width="150dp"
+            android:layout_height="60dp"
+            android:textSize="26sp"
+            android:text="圆角"/>
+
+
+    <Space android:layout_width="10dp"
+           android:layout_height="10dp"/>
+
+    <Button
+            android:id="@+id/btn_d"
+            android:layout_width="150dp"
+            android:layout_height="60dp"
+            android:textSize="26sp"
+            android:text="按压"/>
+
+
+</LinearLayout>
