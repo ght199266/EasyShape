@@ -12,41 +12,44 @@ import android.view.View;
  * classes:com.lly.easyshape.shape.EasyShape
  *
  * @author lileiyi
- * @date 2019/4/24
- * @time 10:40
  * @description
  */
 public class EasyShape {
 
-    //上下文对象
-    private Context mContext;
-
     private EasyShapeParams P;
 
+    public EasyShape() {
+        P = new EasyShapeParams();
+    }
+
     /**
-     * 设置边框
+     * 设置四周的边框
      *
-     * @param width 宽
+     * @param width 宽度
      * @param color 颜色
      */
     public EasyShape setStroke(int width, @ColorInt int color) {
-        P.mStrokeWidth = dip2px(width);
+        P.mStrokeWidth = width;
         P.mStrokeColor = color;
         return this;
     }
 
-    public EasyShape with(Context context) {
-        this.mContext = context;
-        P = new EasyShapeParams();
-        return this;
-    }
-
-
+    /**
+     * 设置颜色
+     *
+     * @param colorStateList 不同状态view的颜色
+     */
     public EasyShape setStateColor(ColorStateList colorStateList) {
         P.mColorStateList = colorStateList;
         return this;
     }
 
+    /**
+     * 简单设置普通和按下的颜色
+     *
+     * @param defaultColor 默认颜色
+     * @param pressedColor 手指按下颜色
+     */
     public EasyShape setStateColor(@ColorInt int defaultColor, @ColorInt int pressedColor) {
         int[] colors = new int[]{pressedColor, Color.YELLOW, defaultColor, Color.CYAN, Color.BLUE, Color.GREEN};
         int[][] states = new int[6][];
@@ -60,14 +63,23 @@ public class EasyShape {
         return this;
     }
 
-
+    /**
+     * 设置单个颜色
+     *
+     * @param argb argb
+     */
     public EasyShape setColor(@ColorInt int argb) {
         P.mColor = argb;
         return this;
     }
 
+    /**
+     * 圆角
+     *
+     * @param radius
+     */
     public EasyShape setRadius(int radius) {
-        P.mRadius = dip2px(radius);
+        P.mRadius = radius;
         return this;
     }
 
@@ -79,39 +91,34 @@ public class EasyShape {
      * @param color       // 线颜色
      * @param lineWidth   //虚线长度
      * @param lineGap     //虚线之间的间隔
-     * @return
      */
     public EasyShape setLineParams(int strokeWidth, int color, int lineWidth, int lineGap) {
-        P.mStrokeWidth = dip2px(strokeWidth);
+        P.mStrokeWidth = strokeWidth;
         P.mStrokeColor = color;
-        P.dashWidth = dip2px(lineWidth);
-        P.dashGap = dip2px(lineGap);
+        P.dashWidth = lineWidth;
+        P.dashGap = lineGap;
         return this;
     }
 
-
-    public EasyShape setDashWidth(int dashWidth) {
-        P.dashWidth = dashWidth;
-        return this;
-    }
-
-    public EasyShape setdashGap(int dashGap) {
-        P.dashGap = dashGap;
-        return this;
-    }
 
     /**
-     * 设置圆角（左上右下）
+     * 设置单独四周圆角（左上右下）
      */
     public EasyShape setRadius(int leftTop, int rightTop, int leftBottom, int rightBottom) {
-        P.mfloatRadius = getCornerRadii(leftTop, rightTop, leftBottom, rightBottom);
+        P.mFloatRadius = getCornerRadii(leftTop, rightTop, leftBottom, rightBottom);
         return this;
     }
 
+
+    /**
+     * 目标view
+     */
     public void target(View targetView) {
         if (targetView == null || P == null) {
             return;
         }
+        P.context = targetView.getContext();
+
         final GradientDrawable drawable = new GradientDrawable();
 
         if (P.mColorStateList != null) {
@@ -119,32 +126,26 @@ public class EasyShape {
         } else {
             drawable.setColor(P.mColor);
         }
-        if (P.mfloatRadius != null) {
-            drawable.setCornerRadii(P.mfloatRadius);
+        if (P.mFloatRadius != null) {
+            drawable.setCornerRadii(P.getFloatRadius());
         } else {
-            drawable.setCornerRadius(P.mRadius);
+            drawable.setCornerRadius(P.getRadius());
         }
         if (P.shape == GradientDrawable.LINE) {
-            drawable.setStroke(P.mStrokeWidth, P.mStrokeColor, P.dashWidth, P.dashGap);
+            drawable.setStroke(P.getStrokeWidth(), P.mStrokeColor, P.getDashWidth(), P.getDashGap());
         } else {
+            drawable.setShape(P.shape);
             if (P.mStrokeWidth > 0) {
-                drawable.setStroke(P.mStrokeWidth, P.mStrokeColor);
+                drawable.setStroke(P.getStrokeWidth(), P.mStrokeColor);
             }
         }
         targetView.setBackground(drawable);
     }
 
     private float[] getCornerRadii(int leftTop, int rightTop, int leftBottom, int rightBottom) {
-        return new float[]{dip2px(leftTop), dip2px(leftTop), dip2px(rightTop), dip2px(rightTop), dip2px(rightBottom), dip2px(rightBottom), dip2px(leftBottom), dip2px(leftBottom)};
+        return new float[]{leftTop, leftTop, rightTop, rightTop, rightBottom, rightBottom, leftBottom, leftBottom};
     }
 
-    /**
-     * 从DP转成PX
-     */
-    private int dip2px(float dpValue) {
-        float scale = mContext.getResources().getDisplayMetrics().density;
-        return (int) (dpValue * scale + 0.5f);
-    }
 
     public EasyShape line() {
         P.shape = GradientDrawable.LINE;
@@ -156,8 +157,14 @@ public class EasyShape {
         return this;
     }
 
+    public EasyShape oval() {
+        P.shape = GradientDrawable.OVAL;
+        return this;
+    }
+
     public static class EasyShapeParams {
 
+        Context context = null;
 
         ColorStateList mColorStateList = null;
 
@@ -167,7 +174,7 @@ public class EasyShape {
         //角度
         int mRadius;
         //四周角度
-        float[] mfloatRadius;
+        float[] mFloatRadius;
         //边框的宽度
         int mStrokeWidth;
         //边框的颜色
@@ -177,7 +184,35 @@ public class EasyShape {
         //虚线的间距
         int dashGap = 6;
 
-    }
 
+        int getRadius() {
+            return dPtoPX(mRadius);
+        }
+
+        float[] getFloatRadius() {
+            for (int i = 0; i < mFloatRadius.length; i++) {
+                mFloatRadius[i] = dPtoPX(mFloatRadius[i]);
+            }
+            return mFloatRadius;
+        }
+
+        int getStrokeWidth() {
+            return dPtoPX(mStrokeWidth);
+        }
+
+
+        int getDashWidth() {
+            return dPtoPX(dashWidth);
+        }
+
+        int getDashGap() {
+            return dPtoPX(dashGap);
+        }
+
+        private int dPtoPX(float dpValue) {
+            float scale = context.getResources().getDisplayMetrics().density;
+            return (int) (dpValue * scale + 0.5f);
+        }
+    }
 
 }
