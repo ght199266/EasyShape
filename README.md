@@ -6,18 +6,28 @@
 
 #### 如何使用
 
+#### 有三种类型
+
+```java
+//矩形默认
+rectangle()
+//虚线
+line()
+//圆型
+oval()
+```
+
 ##### 虚线
 ```java
- EasyShape().with(this@MainActivity).line().setLineParams(2, Color.RED, 10, 5).target(view)
+ EasyShape().line().setLineParams(2, Color.RED, 10, 5).target(view)
 ```
 ##### 边框
 ```java
- EasyShape().with(this@MainActivity)
-            .setColor(Color.GREEN).setStroke(2, Color.RED).target(view)
+ EasyShape().setColor(Color.GREEN).setStroke(2, Color.RED).target(view)
 ```
 ##### 圆角
 ```java
- EasyShape().with(this@MainActivity).setColor(Color.WHITE).setRadius(10).target(view)
+ EasyShape().setColor(Color.WHITE).setRadius(10).target(view)
  //也可以这样分别设置
  EasyShape().with(this@MainActivity).setColor(Color.WHITE).setRadius(20,10,0,0).target(view)
 ```
@@ -25,6 +35,10 @@
 ```java
   EasyShape().with(this@MainActivity).setStateColor(Color.WHITE, Color.GRAY)
             .setRadius(10).target(view)
+```
+##### 点击状态
+```java
+  EasyShape().oval().setColor(Color.RED).target(btn_e)
 ```
 
 #### 效果图
