@@ -36,7 +36,7 @@ oval()
   EasyShape().with(this@MainActivity).setStateColor(Color.WHITE, Color.GRAY)
             .setRadius(10).target(view)
 ```
-##### 点击状态
+##### 圆
 ```java
   EasyShape().oval().setColor(Color.RED).target(btn_e)
 ```
